@@ -50,6 +50,46 @@ Flag : 99a8fc05f033f2fc0cf9a6f9826f83f4
 
 Ngoài ra ta có thể sử dụng ftp:// , điều này cũng có thể hữu ích trong trường hợp cổng http bị chặn bởi tường lửa hoặc http://chuỗi bị chặn bởi WAF
 
+# Tấn công Web qua User-Agent Injection & Local File Inclusion (Server log poisoning)
+
+Trong Apache tệp access.log chứa nhiều thông tin khác nhau về tất cả các yêu cầu được gửi đến máy chủ, bao gồm cả user-agent, Vì chúng ta có thể kiểm soát User-Agent trong yêu cầu của mình nên chúng ta có thể đầu độc tiêu đề User-Agent
+
+Theo mặc định thì tệp access.log được đặt trong 
+> /var/log/apache2/access.log
+
+![Screenshot 2025-04-22 180522](https://github.com/user-attachments/assets/c1e08023-9daf-4ed5-a886-6f5861660df2)
+
+![image](https://github.com/user-attachments/assets/f1bb98b3-95b5-4943-aa3b-8de2e91fa138)
+
+Đầu tiên ta sử dụng lỗ hổng LFI thông qua tham số language để kết hợp với Apache log poisoning để RCE
+
+![image](https://github.com/user-attachments/assets/2faac2f3-6998-45b1-acd8-6ffee07618a5)
+
+Vì User-Agent được ghi vào access, nên ta chèn mã như sau
+
+![image](https://github.com/user-attachments/assets/063b930f-600c-48a9-acc9-fd118e1febcb)
+
+Tiếp theo ta cần làm là đưa file log chứa mã php vào lỗ hổng LFI thông qua tham số language như sau
+
+![image](https://github.com/user-attachments/assets/fea2b5b7-267f-4d59-a458-d3a07c3d11be)
+
+![image](https://github.com/user-attachments/assets/4d328efe-83ef-45f5-8a3f-173d84b35e84)
+
+flag : HTB{1095_5#0u1d_n3v3r_63_3xp053d}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
